@@ -12,6 +12,16 @@ on:
         required: false
         type: boolean
         default: false
+      version:
+        description: "Version number to use for tag/include in info file"
+        required: false
+        type: string
+        default: "v1.0.0"
+      tag:
+        description: "Create tag for this release, defaults to '<name>-<version>'"
+        required: false
+        type: boolean
+        default: true
       erc:
         description: "Include ERC output"
         required: false
@@ -30,11 +40,6 @@ on:
         description: "Main .kicad_pcb file name, defaults to '<name>.kicad_pcb'"
         required: false
         type: string
-      version:
-        description: "Version number to include in info file"
-        required: false
-        type: string
-        default: "v1.0"
       fabrication:
         description: "Manufacturer/fabrication provider name to include in info file"
         required: false
@@ -147,10 +152,13 @@ jobs:
       - name: Commit changes
         env:
           NAME: ${{ inputs.name }}
+          CREATE_TAG: ${{ inputs.tag }}
+          VERSION: ${{ inputs.version }}
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git config --global --add safe.directory "$(pwd)"
           git add release/
           git commit -m "Automatically generate $NAME production files"
+          [ "$CREATE_TAG" = "true" ] && git tag "${NAME}-${VERSION}"
           git push
