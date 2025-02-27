@@ -42449,6 +42449,17 @@
 			(uuid "4aeb836e-add0-4153-ade0-f0ab0127625e")
 		)
 	)
+	(gr_rect
+		(start 192.85 57.4)
+		(end 246.2 145.75)
+		(stroke
+			(width 0.2)
+			(type default)
+		)
+		(fill solid)
+		(layer "F.Cu")
+		(uuid "62c06073-16b9-4639-b084-f5b207c65971")
+	)
 	(gr_line
 		(start 195.835433 145.767302)
 		(end 243.202858 145.717258)
